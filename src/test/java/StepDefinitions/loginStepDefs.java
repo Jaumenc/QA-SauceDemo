@@ -1,17 +1,21 @@
 package StepDefinitions;
 
+import Pages.CardPage;
 import Pages.HomePage;
 import Pages.LoginPage;
 import Scripts.Commons;
+import Scripts.Configuration;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.Properties;
 
 
 public class loginStepDefs {
 
+    private final static Properties KEY_PROPERTIES = Configuration.KEY_PROPERTIES_FILE;
     @Given("the user visit the sauce page")
     public void navigateToSauceDemoPage(){
         Commons.navigateTo("https://www.saucedemo.com");
@@ -31,5 +35,31 @@ public class loginStepDefs {
     public void isLogged(){
         HomePage.clickOnMenuButton();
         Assert.assertTrue("The user is not logged", HomePage.verifyLogOutButton());
+    }
+
+    @Then("^message is displayed with the text '(.*)'$")
+    public void controlMessageError(String errorMessage){
+        String message = KEY_PROPERTIES.getProperty(errorMessage);
+        Assert.assertTrue("The login is not correct", LoginPage.showMessageError(message));
+    }
+
+    @Then("the user click on add to card button")
+    public void AddToCardClick(){
+        HomePage.clickOnAddToCardButton();
+    }
+
+    @Then("the user click on the remove button from home page")
+    public void RemoveClickHomePage(){
+        HomePage.clickOnRemoveButtonHomePage();
+    }
+
+    @Then("the user click on the card button")
+    public void CardClick(){
+        HomePage.clickOnCardButton();
+    }
+
+    @Then("the user click on the remove button from card page")
+    public void RemoveClickCardPage(){
+        CardPage.clickOnRemoveButtonCardPage();
     }
 }

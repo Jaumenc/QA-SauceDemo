@@ -7,6 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 public class Commons extends BasePage {
     public Commons(WebDriver driver) {
         super(driver);
@@ -50,4 +56,27 @@ public class Commons extends BasePage {
         }
     }
 
+    public static String getText(WebElement element) {
+        try {
+            return element.getText();
+        } catch (Exception e) {
+            Assert.fail("Fail to get text on element " +element);
+            return null;
+        }
+    }
+
+    // PROPERTIES METHODS
+    public static Properties getProperties(String propertiesFileName){
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(new File(propertiesFileName)));
+        } catch (FileNotFoundException e){
+            Assert.fail("File not found: " +propertiesFileName);
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            Assert.fail("Exception while is reading");
+            throw new RuntimeException(e);
+        }
+        return properties;
+    }
 }
