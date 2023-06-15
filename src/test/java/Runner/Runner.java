@@ -13,12 +13,15 @@ import org.junit.runner.RunWith;
                 "StepDefinitions",
                 "Hooks"
         },
+        plugin = {
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+        },
         stepNotifications = true,
-        tags = "@sauceDemo"
+        tags = "@sauceDemo1"
 )
 public class Runner {
     @AfterClass
     public static void tearDown(){
-        BasePage.closeBrowser();
+      //  BasePage.closeBrowser();
     }
 }
