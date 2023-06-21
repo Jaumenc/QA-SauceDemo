@@ -14,7 +14,7 @@ import java.util.Properties;
 public class CheckoutStepDefs {
 
     private final static Properties KEY_PROPERTIES = Configuration.KEY_PROPERTIES_FILE;
-    @Then("user fill the fields")
+    @Then("^user fill the fields$")
     public void FillTheFields(DataTable dt) {
         List<Map<String, String>> rows = dt.asMaps(String.class, String.class);
 
@@ -47,6 +47,15 @@ public class CheckoutStepDefs {
     @Then("^the user verifies that the product name of '(.*)' is correct$")
     public void verifyProductName(String product){
         Assert.assertTrue("Error: the text in the button is not the deserved", CheckoutPage.getTitleProduct(product));
+    }
+    @Then("^the user check if the names of the products are$")
+    public void checkNamesOfTheProducts(DataTable dt){
+        List<Map<String, String>> rows = dt.asMaps(String.class, String.class);
+        for (Map<String, String> columns : rows){
+            String firstName = columns.get("names");
+            System.out.println(firstName);
+            Assert.assertTrue("Error:the products are not displayed", CheckoutPage.checkTheNames(firstName));
+        }
     }
 
 }

@@ -41,7 +41,7 @@ Feature: Test sauceDemo page
 
   #Escenario para comprobar que el producto que esta en el pedido es correcto antes de finalizar el pedido
 
-  @sauceDemo1
+
   Scenario: the user try to add to card and go to checkout and fill the fields
     When the user add the product 'Sauce Labs Backpack' to cart button
     And the user click on the cart button
@@ -55,3 +55,24 @@ Feature: Test sauceDemo page
       | postal-code | 07620   |
     And the user click on continue button
     Then the user verifies that the product name of 'Sauce Labs Backpack' is correct
+
+  #Escenario para comprobar si parecen varios productos en la pantalla de checkpoint
+
+  @sauceDemo1
+  Scenario: the user fill de fields
+    When the user add the product 'Sauce Labs Backpack' to cart button
+    And the user add the product 'Sauce Labs Bike Light' to cart button
+    And the user add the product 'Sauce Labs Bolt T-Shirt' to cart button
+    And the user click on the cart button
+    And the user click on the checkout button
+    And user fill the fields
+      | field       | user1 |
+      | first-name  | ruben |
+      | last-name   | diaz  |
+      | postal-code | 07006 |
+    And the user click on continue button
+    Then the user check if the names of the products are
+      | names                   |
+      | Sauce Labs Backpack     |
+      | Sauce Labs Bike Light   |
+      | Sauce Labs Bolt T-Shirt |
