@@ -1,3 +1,4 @@
+@sauceDemo
 Feature: Test sauceDemo login
 
   Background: navigate to SauceDemo
@@ -57,7 +58,6 @@ Feature: Test sauceDemo login
 
     #Escenario para añadir un producto al carrito y borrarlo desde la pagina del carrito
 
-  @sauceDemo
   Scenario Outline: the user try to login and add to card and remove
     When the user type username: '<user>' and password: '<password>'
     And the user click on login button

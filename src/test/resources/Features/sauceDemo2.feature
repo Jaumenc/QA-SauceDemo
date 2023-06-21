@@ -1,3 +1,4 @@
+@sauceDemo
 Feature: Test sauceDemo page
   Background: login to SauceDemo
     Given the user visit the sauce page
@@ -58,7 +59,7 @@ Feature: Test sauceDemo page
 
   #Escenario para comprobar si parecen varios productos en la pantalla de checkpoint
 
-  @sauceDemo1
+
   Scenario: the user fill de fields
     When the user add the product 'Sauce Labs Backpack' to cart button
     And the user add the product 'Sauce Labs Bike Light' to cart button
