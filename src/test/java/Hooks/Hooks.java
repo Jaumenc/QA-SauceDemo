@@ -1,6 +1,8 @@
 package Hooks;
 
+import Pages.BasePage;
 import Utils.BrowserUtils;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -27,5 +29,9 @@ public class Hooks {
             scenario.attach(screenShot, "image/png", "screenshot");
             System.out.println("The screenshot is done");
         }
+    }
+    @AfterAll
+    public static void tearDown(){
+        BasePage.closeBrowser();
     }
 }
