@@ -1,6 +1,9 @@
 package Pages;
 
 import Scripts.Commons;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class CheckoutPage {
     private static final String FIRST_NAME_FIELD = "//input[@id='first-name']";
@@ -11,6 +14,7 @@ public class CheckoutPage {
     private static final String FINISH_BUTTON = "//button[@id='finish']";
     private static final String MESSAGE_ERROR = "//h3[@data-test='error']";
     private static final String PRODUCT_NAME = "//div[@class='inventory_item_name']";
+    private static final String GENERIC_XPATH_PRODUCTS = "//div[@class='inventory_item_name']";
 
     public static void fillTheFields(String firstname, String lastname, String postalcode){
         Commons.setText(Commons.findElementByXpath(FIRST_NAME_FIELD), firstname);
@@ -36,5 +40,17 @@ public class CheckoutPage {
 
     public static boolean getTitleProduct(String product){
         return Commons.getText(Commons.findElementByXpath(PRODUCT_NAME)).matches(product);
+    }
+
+    public static boolean checkTheNames(String product){
+//return Commons.findElementIsDisplayed(Commons.findElementByXpath(String.format(GENERIC_XPATH_PRODUCTS, product)));
+        List<WebElement> lista = Commons.findElementsByXpath(GENERIC_XPATH_PRODUCTS);
+        for(WebElement nameProducts : lista){
+            String name = nameProducts.getText();
+            if(name.matches(product)){
+                return true;
+            }
+        }
+        return false;
     }
 }
