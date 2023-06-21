@@ -1,0 +1,40 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Ejecucion test con Selenium
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: repo
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        gradle-version: '8.1.1'
+    - name: Run test with chrome driver
+      run: gradle test -DwebDriver=chrome -DwindowSize=1334x750 -DheadlessMode=false -Dcucumber.filter.tags="@sauceDemo" --info
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: htmlReport
+        path: Test-reports/
+      if: always()  
