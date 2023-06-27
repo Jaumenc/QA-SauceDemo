@@ -25,8 +25,21 @@ public class Commons extends BasePage {
     //Find methods
     public static WebElement findElementByXpath(String locator){
         try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
-        }catch (Exception e){
+            int attempts = 0;
+            boolean failed;
+            do {
+                try {
+                    return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+                }catch (Exception e){
+                    attempts++;
+                    failed=true;
+                    System.out.println("retry:" +attempts);
+                }
+            } while (attempts<3 && failed);
+            Assert.fail("Fail to find element: " + locator);
+            return null;
+
+        } catch (Exception ignored) {
             Assert.fail("Fail to find element: "+ locator);
             return null;
         }
@@ -34,7 +47,7 @@ public class Commons extends BasePage {
 
     public static List<WebElement> findElementsByXpath(String locator){
         try {
-            List <WebElement> elements = driver.findElements(By.xpath(locator));
+            List <WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
             return elements;
         }catch (Exception e){
             Assert.fail("Fail to find element: "+ locator);

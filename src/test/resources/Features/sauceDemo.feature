@@ -109,5 +109,5 @@ Feature: Test sauceDemo login
 
     Examples:
 
-      | user          | password     | product
-      | standard_user | secret_sauce | Sauce Labs Backpack
+      | user          | password     | product             |
+      | standard_user | secret_sauce | Sauce Labs Backpack |

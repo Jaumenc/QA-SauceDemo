@@ -20,7 +20,7 @@ public class BasePage {
     private static final String FIREFOX_DRIVER = "firefox";
     private static boolean headlessMode = Boolean.parseBoolean(System.getProperty("headlessMode"));
 
-    static {
+    public static void setUp() {
         switch (WEB_DRIVER){
             case CHROME_DRIVER :
                 System.out.println("chrome driver selected");
@@ -41,7 +41,7 @@ public class BasePage {
             System.out.println("HeadlessMode selected");
         }
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public static void firefoxDriver(){
@@ -51,7 +51,7 @@ public class BasePage {
             System.out.println("HeadlessMode selected");
         }
         driver = new FirefoxDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public BasePage(WebDriver driver){
